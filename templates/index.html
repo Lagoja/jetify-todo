@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Todo App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page-container">
+        <main class="main-content">
+            <h1>✨ Task Master</h1>
+            
+            <form class="todo-form" action="{{ url_for('add') }}" method="POST">
+                <div class="input-group">
+                    <input type="text" name="title" placeholder="What needs to be done?" required>
+                    <button type="submit">Add Task</button>
+                </div>
+            </form>
+
+            <div class="todo-list-container">
+                <div class="todo-list">
+                    {% for todo in todos %}
+                    <div class="todo-item">
+                        <div class="todo-content {{ 'completed' if todo.completed }}">
+                            {{ todo.title }}
+                        </div>
+                        <div class="action-links">
+                            <a href="{{ url_for('complete', id=todo.id) }}" class="complete-btn">
+                                {% if not todo.completed %}
+                                <i class="far fa-circle"></i>
+                                {% else %}
+                                <i class="fas fa-check-circle"></i>
+                                {% endif %}
+                            </a>
+                            <a href="{{ url_for('delete', id=todo.id) }}" class="delete-btn">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="built-with">
+                <div class="built-with-text">Built With</div>
+                <div class="logo-container">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

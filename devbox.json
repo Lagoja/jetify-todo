@@ -1,13 +1,18 @@
 {
-  "$schema":  "https://raw.githubusercontent.com/jetify-com/devbox/0.0.0-dev/.schema/devbox.schema.json",
-  "packages": ["python@3.11"],
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.13.6/.schema/devbox.schema.json",
+  "packages": [
+    "python@3.11",
+    "postgresql@latest",
+    "glibclocales@latest"
+  ],
+  "env": {},
   "shell": {
     "init_hook": [
       ". $VENV_DIR/bin/activate"
     ],
     "scripts": {
       "install": "pip install -r requirements.txt",
-      "start": "gunicorn -w 2 -b 0.0.0.0:8080 main:app"
+      "start":   "gunicorn -w 2 -b 0.0.0.0:8080 main:app"
     }
   }
 }
