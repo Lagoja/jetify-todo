@@ -1,9 +1,9 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.13.6/.schema/devbox.schema.json",
   "packages": [
-    "python@3.11",
     "postgresql@latest",
-    "glibclocales@latest"
+    "glibclocales@latest",
+    "python@3.11"
   ],
   "env": {},
   "shell": {
@@ -12,7 +12,15 @@
     ],
     "scripts": {
       "install": "pip install -r requirements.txt",
-      "start":   "gunicorn -w 2 -b 0.0.0.0:8080 main:app"
+      "start":   "gunicorn -w 2 -b 0.0.0.0:8080 main:app",
+      "create-db": [
+        "dropdb --if-exists todo_db",
+        "createdb todo_db",
+        "psql todo_db < setup.sql"
+      ],
+      "psql": [
+        "psql todo_db"
+      ]
     }
   }
 }
